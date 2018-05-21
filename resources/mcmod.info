@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ToggleChatViewer",
+  "name": "Toggle chat viewer",
+  "description": "toguru.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["S4WA"],
+  "credits": "none",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
