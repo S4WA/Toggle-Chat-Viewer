@@ -3,7 +3,6 @@ package me.s4wa;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,9 +15,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(modid = ToggleChatViewer.MODID, version = ToggleChatViewer.VERSION)
-public class ToggleChatViewer
-{
-    public static final String MODID = "Toggle chat viewer";
+public class ToggleChatViewer {
+    public static final String MODID = "Toggle-chat-viewer";
     public static final String VERSION = "1.0";
     public static boolean showEnabled = true;
     private KeyBinding KeyBinding;
@@ -36,25 +34,21 @@ public class ToggleChatViewer
 	public void onrender(RenderGameOverlayEvent event) {
 		if (this.mc.currentScreen != null) return;
 		
-		if (this.KeyBinding.isPressed()) {
+		if (this.KeyBinding.isPressed() || mc.gameSettings.keyBindChat.isPressed()) {
 			showEnabled = !showEnabled;
+			float sound = 0.0F;
+			float slace = 1.0F;
 			
 			if (showEnabled == false) {
-				mc.gameSettings.chatVisibility = EnumChatVisibility.HIDDEN;
-				mc.getSoundHandler().playSound(
-						PositionedSoundRecord.func_147674_a(
-								new ResourceLocation("gui.button.press"), 
-								0.8F)
-						);
+				sound = 0.8F;
+				slace = 0.0F;
 			} else {
-				mc.gameSettings.chatVisibility = EnumChatVisibility.FULL;
-
-				mc.getSoundHandler().playSound(
-						PositionedSoundRecord.func_147674_a(
-								new ResourceLocation("gui.button.press"), 
-								1.0F)
-						);
+				sound = 1.0F;
+				slace = 1.0F;
 			}
+			mc.gameSettings.chatScale = slace;
+//			mc.gameSettings.chatVisibility = EnumChatVisibility.HIDDEN;
+			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), sound));
 		}
 	}
 }
